@@ -26,7 +26,7 @@ void output(vector<Point> &points);
 vector<Cluster> init_clusters(int k, int max_range);
 void compute_dist(vector<Cluster> &clusters, vector<Point> &points, int n);
 bool update_clusters(vector<Cluster> &clusters, vector<Point> &points);
-double euclidean_distance(Cluster &cluster, Point &point);
+float euclidean_distance(Cluster &cluster, Point &point);
 //----------------------------------------------------------------------//
 int main(){
     auto t1 = high_resolution_clock::now();
@@ -74,7 +74,7 @@ void compute_dist(vector<Cluster> &clusters, vector<Point> &points, int n){
         parallel_for(blocked_range<int>(0,n), [&](blocked_range<int> &r){
             for(int i=r.begin(); i!=r.end(); ++i){
                 Point* p = &points.at(i); //Use pointers to make the code faster
-                double dist = euclidean_distance(*c, *p);
+                float dist = euclidean_distance(*c, *p);
                 if (dist < p->get_min_distance()) {
                     p->update_min_distance(dist);
                     p->update_cluster_id(cluster_id);
@@ -84,8 +84,8 @@ void compute_dist(vector<Cluster> &clusters, vector<Point> &points, int n){
     }
 }
 //----------------------------------------------------------------------//
-double euclidean_distance(Cluster &cluster, Point &point){
-    double distance; //AVX intrinsics, not applicable to the ARM64 architecture
+float euclidean_distance(Cluster &cluster, Point &point){
+    float distance; 
     float32x4_t vec1 = {point.get_x(), point.get_y(), point.get_z()};
     float32x4_t vec2 = {cluster.get_x(), cluster.get_y(), cluster.get_z()};
     float32x4_t diff = vsubq_f32(vec1, vec2);
@@ -132,7 +132,7 @@ vector<Point> input(){ //read all points
     while (getline(file, line)) {
         stringstream lineStream(line);
         string bit;
-        double x, y, z;
+        float x, y, z;
         getline(lineStream, bit, ',');
         x = stof(bit);
         getline(lineStream, bit, ',');

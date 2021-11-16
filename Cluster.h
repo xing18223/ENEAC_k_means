@@ -1,6 +1,6 @@
 class Cluster{
 public:
-    Cluster(double new_x, double new_y, double new_z){
+    Cluster(float new_x, float new_y, float new_z){
         sum_x = 0;
         sum_y = 0;
         sum_z = 0;
@@ -20,15 +20,15 @@ public:
         z = 0;
     }
 
-    double get_x(){
+    float get_x(){
         return x;
     }
 
-    double get_y(){
+    float get_y(){
         return y;
     }
 
-    double get_z(){
+    float get_z(){
         return z;
     }
 
@@ -56,13 +56,13 @@ public:
         size ++;
     }
 private:
-    double x;
-    double y;
-    double z;
+    float x;
+    float y;
+    float z;
 
-    double sum_x;
-    double sum_y;
-    double sum_z;
+    float sum_x;
+    float sum_y;
+    float sum_z;
 
     int size;
 };

@@ -20,7 +20,7 @@ vector<Cluster> init_clusters(int k, int max_range);
 void compute_dist(vector<Point> &points, vector<Cluster> &clusters);
 bool update_clusters(vector<Cluster> &clusters);
 void output(vector<Point> &points);
-double euclidean_distance(Cluster &cluster, Point &point);
+float euclidean_distance(Cluster &cluster, Point &point);
 //----------------------------------------------------------------------//
 int main(){
     auto t1 = high_resolution_clock::now();
@@ -65,7 +65,7 @@ void compute_dist(vector<Point> &points, vector<Cluster> &clusters){
     for (vector<Cluster>::iterator c = clusters.begin(); c != clusters.end(); c++){
         int clusterId = c - clusters.begin();
         for (vector<Point>::iterator p = points.begin(); p != points.end(); p++){
-            double dist = euclidean_distance(*c,*p);
+            float dist = euclidean_distance(*c,*p);
             if (dist < p->get_min_distance()) {
                     p->update_min_distance(dist);
                     p->update_cluster_id(clusterId);
@@ -75,8 +75,8 @@ void compute_dist(vector<Point> &points, vector<Cluster> &clusters){
     }
 }
 //----------------------------------------------------------------------//
-double euclidean_distance(Cluster &cluster, Point &point){
-    double distance = sqrt(pow(cluster.get_x()-point.get_x(), 2) + pow(cluster.get_y()-point.get_y(), 2) + pow(cluster.get_z()-point.get_z(), 2));
+float euclidean_distance(Cluster &cluster, Point &point){
+    float distance = sqrt(pow(cluster.get_x()-point.get_x(), 2) + pow(cluster.get_y()-point.get_y(), 2) + pow(cluster.get_z()-point.get_z(), 2));
     return distance;
 }
 //----------------------------------------------------------------------//
@@ -114,7 +114,7 @@ vector<Point> input(){ //read all points
     while (getline(file, line)) {
         stringstream lineStream(line);
         string bit;
-        double x, y, z;
+        float x, y, z;
         getline(lineStream, bit, ',');
         x = stof(bit);
         getline(lineStream, bit, ',');

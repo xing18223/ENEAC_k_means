@@ -1,6 +1,6 @@
 class Point{
 public:
-    Point(double new_x, double new_y, double new_z){
+    Point(float new_x, float new_y, float new_z){
         x = new_x;
         y = new_y;
         z = new_z;
@@ -16,18 +16,18 @@ public:
         min_distance = __DBL_MAX__;
     }
 
-    double get_x(){
+    float get_x(){
         return x;
     }
 
-    double get_y(){
+    float get_y(){
         return y;
     }
 
-    double get_z(){
+    float get_z(){
         return z;
     }
-    double get_min_distance(){
+    float get_min_distance(){
         return min_distance;
     }
 
@@ -39,13 +39,13 @@ public:
         cluster_id = new_cluster_id;
     }
 
-    void update_min_distance(double new_min_distance){
+    void update_min_distance(float new_min_distance){
         min_distance = new_min_distance;
     }
 private:
-    double x;
-    double y;
-    double z;
+    float x;
+    float y;
+    float z;
     int cluster_id;
-    double min_distance;
+    float min_distance;
 };
